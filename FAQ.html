@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PayEasy FAQ</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Roboto -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <!-- React and Babel -->
+  <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-white text-gray-800">
+
+  <!-- Navbar -->
+  <nav class="fixed top-0 w-full bg-white shadow z-50">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+      <h1 class="text-2xl font-bold text-blue-900">PayEasy</h1>
+      <div class="space-x-4 hidden md:flex">
+        <a href="index.html" class="text-[#1E40AF] underline">Home</a>
+        <a href="howitworks.html" class="text-sm text-gray-700 hover:text-blue-900">How It Works</a>
+        <a href="Borrower.html" class="text-sm text-gray-700 hover:text-blue-900">Borrowers</a>
+        <a href="lender.html" class="text-sm text-gray-700 hover:text-blue-900">Lenders</a>
+        <a href="FAQ.html" class="text-sm text-gray-700 hover:text-blue-900">FAQ</a>
+        <a href="TermsNc.html" class="text-sm text-gray-700 hover:text-blue-900">Terms and Conditions</a>
+
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- Main Content -->
+  <main id="root" class="max-w-4xl mx-auto px-4 py-8"></main>
+
+  <!-- Footer -->
+  <footer class="bg-blue-50 text-sm text-center py-6 mt-12">
+    <div class="text-gray-600">
+      RBI-Compliant | Secure Escrow | Powered by UPI
+    </div>
+    <div class="mt-2 space-x-4">
+      <a href="#" class="text-blue-600 hover:underline">Privacy Policy</a>
+      <a href="#" class="text-blue-600 hover:underline">Terms of Service</a>
+      <a href="mailto:support@payeasy.in" class="text-blue-600 hover:underline">Contact Us</a>
+    </div>
+  </footer>
+
+  <!-- React App -->
+  <script type="text/babel">
+    const { useState } = React;
+
+    const FAQ_DATA = {
+      Borrowers: [
+        {
+          question: "What is PayEasy BNPL?",
+          answer: "A platform to buy now, pay later for unbanked Indians using AI and UPI."
+        },
+        {
+          question: "How does AI credit scoring work?",
+          answer: "We analyze your UPI transaction data to assess creditworthiness, no CIBIL needed."
+        },
+        {
+          question: "How do I repay?",
+          answer: "Via UPI Autopay or manual payments on the website, with 1-2% fees."
+        }
+      ],
+      Lenders: [
+        {
+          question: "How are my funds protected?",
+          answer: "Funds are held in secure escrow; high-risk borrowers require deposits."
+        },
+        {
+          question: "What returns can I expect?",
+          answer: "Earn interest/commissions based on loan terms, typically 5-10% annually."
+        },
+        {
+          question: "How do I track repayments?",
+          answer: "Real-time updates on our dashboard via UPI Autopay."
+        }
+      ],
+      Merchants: [
+        {
+          question: "How do I integrate BNPL?",
+          answer: "Sign up, get API keys, and add PayEasy BNPL at checkout."
+        },
+        {
+          question: "What are the fees?",
+          answer: "1-2% per transaction, no hidden fees."
+        },
+        {
+          question: "How do I receive payments?",
+          answer: "Funds are released from escrow post-delivery to your UPI/bank account."
+        }
+      ]
+    };
+
+    function FAQItem({ question, answer }) {
+      const [isOpen, setIsOpen] = useState(false);
+      return (
+        <div className="border-b border-gray-200 py-4">
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="w-full text-left flex justify-between items-center focus:outline-none"
+          >
+            <span className="text-lg font-medium">{question}</span>
+            <span className="text-xl">{isOpen ? "-" : "+"}</span>
+          </button>
+          {isOpen && (
+            <div className="mt-2 text-gray-600">
+              {answer}
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    function FAQSection() {
+      const [activeTab, setActiveTab] = useState("Borrowers");
+      const [searchTerm, setSearchTerm] = useState("");
+
+      const filteredFAQs = FAQ_DATA[activeTab].filter(faq =>
+        faq.question.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        faq.answer.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+
+      return (
+        <div>
+          <h2 className="text-2xl font-bold mb-4 text-center">Frequently Asked Questions</h2>
+          {/* Tabs */}
+          <div className="flex justify-center mb-4 space-x-4">
+            {Object.keys(FAQ_DATA).map(tab => (
+              <button
+                key={tab}
+                onClick={() => { setActiveTab(tab); setSearchTerm(""); }}
+                className={`px-4 py-2 rounded ${activeTab === tab ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-700"}`}
+              >
+                {tab}
+              </button>
+            ))}
+          </div>
+          {/* Search Bar */}
+          <div className="mb-6">
+            <input
+              type="text"
+              placeholder="Search FAQs..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full border border-gray-300 rounded px-4 py-2"
+            />
+          </div>
+          {/* FAQ Items */}
+          <div>
+            {filteredFAQs.length > 0 ? (
+              filteredFAQs.map((faq, index) => (
+                <FAQItem key={index} question={faq.question} answer={faq.answer} />
+              ))
+            ) : (
+              <p className="text-center text-gray-500">No FAQs found.</p>
+            )}
+          </div>
+          {/* Contact Support */}
+          <div className="mt-8 text-center">
+            <p className="mb-2">Still have questions?</p>
+            <a
+              href="mailto:support@payeasy.in"
+              className="inline-block bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700"
+            >
+              Contact Us
+            </a>
+            <p className="mt-2 text-sm text-gray-500">We also support WhatsApp and SMS queries.</p>
+          </div>
+        </div>
+      );
+    }
+
+    ReactDOM.render(<FAQSection />, document.getElementById('root'));
+  </script>
+</body>
+</html>

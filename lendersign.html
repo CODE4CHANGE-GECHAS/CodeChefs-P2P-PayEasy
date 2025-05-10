@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lenders | PayEasy.in</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+<body class="font-sans text-gray-800">
+
+  <!-- Navigation Bar -->
+  <nav class="fixed top-0 left-0 w-full bg-white shadow z-50">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+      <a href="#" class="text-xl font-bold text-[#1E40AF]">PayEasy</a>
+      <div class="space-x-4 text-sm font-medium hidden md:block">
+        <a href="index.html" class="text-gray-600 hover:text-[#1E40AF]">Home</a>
+        <a href="howitworks.html" class="text-gray-600 hover:text-[#1E40AF]">How It Works</a>
+        <a href="Borrower.html" class="text-gray-600 hover:text-[#1E40AF]">Borrowers</a>
+        <a href="lender.html" class="text-[#1E40AF] underline">Lenders</a>
+        <a href="FAQ.html" class="text-sm text-gray-700 hover:text-blue-900">FAQ</a>
+        <a href="TermsNc.html" class="text-sm text-gray-700 hover:text-blue-900">Terms and Conditions</a>    
+      </div>
+    </div>
+  </nav>
+
+
+
+<section id="lender-kyc-section" class="py-12 bg-white px-4">
+  <div class="max-w-5xl mx-auto">
+    <h2 class="text-2xl font-semibold text-center text-[#1E40AF] mb-8">Lender KYC Registration</h2>
+    <div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow">
+      <form id="lender-kyc-form">
+        <div class="mb-4">
+          <label for="full-name" class="block text-sm font-medium text-gray-700">Full Name</label>
+          <input type="text" id="full-name" class="w-full p-2 border rounded-lg focus:ring-[#1E40AF]" required />
+        </div>
+        <div class="mb-4">
+          <label for="aadhaar" class="block text-sm font-medium text-gray-700">Aadhaar / KYC ID</label>
+          <input type="text" id="aadhaar" class="w-full p-2 border rounded-lg focus:ring-[#1E40AF]" required />
+        </div>
+        <div class="mb-4">
+          <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+          <input type="email" id="email" class="w-full p-2 border rounded-lg focus:ring-[#1E40AF]" required />
+        </div>
+        <div class="mb-4">
+          <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+          <input type="password" id="password" class="w-full p-2 border rounded-lg focus:ring-[#1E40AF]" required />
+        </div>
+        <button type="submit" class="w-full bg-[#1E40AF] text-white py-2 px-4 rounded-lg hover:bg-blue-900">
+          Submit KYC
+        </button>
+      </form>
+      <p id="kyc-success-msg" class="mt-4 text-center text-sm text-green-600 hidden">KYC Successful! Proceeding to next step...</p>
+    </div>
+  </div>
+</section>
+
+<!-- Step 2: Additional Verification -->
+<section id="lender-verification-section" class="py-12 bg-gray-50 px-4 hidden">
+  <div class="max-w-5xl mx-auto">
+    <h2 class="text-2xl font-semibold text-center text-[#1E40AF] mb-8">Verification & Consent</h2>
+    <div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow">
+      <form id="lender-verification-form">
+        <div class="mb-4">
+          <label for="income-proof" class="block text-sm font-medium text-gray-700">Upload Income Proof</label>
+          <input type="file" id="income-proof" class="w-full p-2 border rounded-lg" required />
+        </div>
+        <div class="mb-4">
+          <label for="geo-proof" class="block text-sm font-medium text-gray-700">Upload Geographic Proof</label>
+          <input type="file" id="geo-proof" class="w-full p-2 border rounded-lg" required />
+        </div>
+        <div class="mb-4">
+          <label for="risk-tolerance" class="block text-sm font-medium text-gray-700">Risk Tolerance Level</label>
+          <select id="risk-tolerance" class="w-full p-2 border rounded-lg" required>
+            <option value="">Select</option>
+            <option value="low">Low</option>
+            <option value="moderate">Moderate</option>
+            <option value="high">High</option>
+          </select>
+        </div>
+        <div class="mb-4">
+          <label class="inline-flex items-center">
+            <input type="checkbox" required class="form-checkbox text-[#1E40AF]" />
+            <span class="ml-2 text-sm text-gray-700">I provide digital consent for verification and communication.</span>
+          </label>
+        </div>
+        <button type="submit" class="w-full bg-[#1E40AF] text-white py-2 px-4 rounded-lg hover:bg-blue-900">
+          Submit Verification
+        </button>
+      </form>
+      <p id="verification-success-msg" class="mt-4 text-center text-sm text-green-600 hidden">Verification Complete! You're now registered as a Lender.</p>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Step 1: Handle KYC Form
+  document.getElementById('lender-kyc-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    document.getElementById('kyc-success-msg').classList.remove('hidden');
+    setTimeout(() => {
+      document.getElementById('lender-kyc-section').classList.add('hidden');
+      document.getElementById('lender-verification-section').classList.remove('hidden');
+    }, 1500);
+  });
+
+  // Step 2: Handle Additional Verification
+  document.getElementById('lender-verification-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    document.getElementById('verification-success-msg').classList.remove('hidden');
+    // Here you could redirect or store to server
+  });
+</script>

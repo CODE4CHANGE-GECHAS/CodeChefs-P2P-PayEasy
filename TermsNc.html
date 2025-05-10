@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PayEasy - Terms and Conditions</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts (Roboto) -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+
+    <!-- React, ReactDOM, Babel CDN -->
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Custom Styles -->
+    <style>
+      body {
+        font-family: 'Roboto', sans-serif;
+      }
+    </style>
+  </head>
+  <body class="bg-white text-gray-800">
+    <!-- Root React Mount Point -->
+    <div id="root"></div>
+
+    <!-- React JSX App -->
+    <script type="text/babel">
+      function TermsPage() {
+        const [agreed, setAgreed] = React.useState(false);
+        const [submitted, setSubmitted] = React.useState(false);
+
+        const handleSubmit = () => {
+          if (agreed) {
+            setSubmitted(true);
+          }
+        };
+
+        return (
+          <div>
+            {/* Sticky Header */}
+            <header className="fixed top-0 w-full bg-white shadow z-50">
+              <div className="max-w-7xl mx-auto flex justify-between items-center p-4">
+                <h1 className="text-xl font-bold">PayEasy</h1>
+                <nav className="space-x-4 text-sm">
+                  <a href="index.html" className="text-sm text-gray-700 hover:text-blue-900">Home</a>
+                  <a href="howitworks.html" className="text-sm text-gray-700 hover:text-blue-900">How It Works</a>
+                  <a href="Borrower.html" className="text-sm text-gray-700 hover:text-blue-900">Borrowers</a>
+                  <a href="lender.html" className="text-sm text-gray-700 hover:text-blue-900">Lenders</a>
+                  <a href="FAQ.html" className="text-sm text-gray-700 hover:text-blue-900">FAQ</a>
+                </nav>
+              </div>
+            </header>
+
+            {/* Main Content */}
+            <main className="max-w-4xl mx-auto px-4 pt-24 pb-10">
+              <h2 className="text-3xl font-bold text-blue-900 mb-6">Terms and Conditions</h2>
+
+              <section className="space-y-4 text-sm md:text-base">
+                <p><strong>General:</strong> Users must be 18+ and provide accurate information (e.g., mobile number, UPI ID). PayEasy is not liable for misuse of the platform.</p>
+                <p><strong>Borrowers:</strong> Must repay loans via UPI Autopay on agreed schedules. Late payments incur small fees; defaults may lead to blacklisting and RBI-compliant recovery.</p>
+                <p><strong>Lenders:</strong> Funds are held in secure escrow; returns are not guaranteed due to default risks. Lenders can choose borrowers based on risk tolerance.</p>
+                <p><strong>Compliance:</strong> All transactions adhere to RBI’s Digital Lending Guidelines.</p>
+
+                {/* Highlighted AI Trust Score Section */}
+                <div className="bg-yellow-100 border-l-4 border-blue-600 p-4 rounded">
+                  <h3 className="text-lg font-semibold text-blue-800">AI Trust Score System</h3>
+                  <p>PayEasy uses an AI Trust Score (0–100) based on UPI transaction data to assess borrower creditworthiness.</p>
+                  <ul className="list-disc list-inside mt-2 space-y-1">
+                    <li><strong>0–33:</strong> No credit provided due to high risk.</li>
+                    <li><strong>34–75:</strong> Credit provided only with collateral (e.g., deposits or digital collateral like tokenized assets or crypto).</li>
+                    <li><strong>76–100:</strong> Credit provided without collateral due to low risk.</li>
+                  </ul>
+                </div>
+
+                {/* Language Toggle Note */}
+                <p className="text-xs italic text-gray-500 mt-4">Note: To support Hindi and other languages, implement a language toggle using internationalization libraries (e.g., i18next).</p>
+
+                {/* Checkbox & Submit */}
+                <div className="mt-6 flex items-start space-x-2">
+                  <input
+                    id="agree"
+                    type="checkbox"
+                    className="mt-1"
+                    checked={agreed}
+                    onChange={(e) => setAgreed(e.target.checked)}
+                  />
+                  <label htmlFor="agree" className="text-sm">
+                    I have read and understood the Terms and Conditions and acknowledge the risks involved in using PayEasy, including potential financial loss for lenders and repayment obligations for borrowers.
+                  </label>
+                </div>
+
+                <button
+                  onClick={handleSubmit}
+                  disabled={!agreed}
+                  className={`mt-4 px-6 py-2 rounded text-white font-medium ${
+                    agreed ? 'bg-blue-800 hover:bg-blue-900' : 'bg-gray-400 cursor-not-allowed'
+                  }`}
+                >
+                  Submit
+                </button>
+
+                {submitted && (
+                  <p className="mt-4 text-green-600 font-semibold">✅ Terms Accepted</p>
+                )}
+              </section>
+            </main>
+
+            {/* Footer */}
+            <footer className="bg-blue-800 text-white py-6 mt-10">
+              <div className="max-w-4xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center text-sm space-y-4 md:space-y-0">
+                <div>RBI-Compliant | Secure Escrow | Powered by UPI</div>
+                <div className="space-x-4">
+                  <a href="#" className="hover:underline">Privacy Policy</a>
+                  <a href="#" className="hover:underline">Terms of Service</a>
+                  <a href="#" className="hover:underline">Contact Us</a>
+                </div>
+              </div>
+            </footer>
+          </div>
+        );
+      }
+
+      ReactDOM.render(<TermsPage />, document.getElementById('root'));
+    </script>
+  </body>
+</html>
